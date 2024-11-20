@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Selector from './components/Selector';
+import Selector from './components/Selector/Selector';
 import Descriptor from './components/Descriptor';
 
 function App() {
