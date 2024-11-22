@@ -8,7 +8,7 @@ interface Props {
 
 function Selector({ selectedPage, onPageChange }: Props) {
   return (
-    <div className='w-40 h-32 text-lg m-4 text-secondary'>
+    <div className='h-[50%] text-lg m-4 text-secondary'>
       <SelectorChild
         pageName='About'
         selectedPage={selectedPage}

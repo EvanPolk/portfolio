@@ -10,7 +10,7 @@ function App() {
   };
 
   return (
-    <div className='w-[97vw] h-[95vh] top-1/2 left-1/2 absolute -translate-x-1/2 -translate-y-1/2 border-2 border-secondary'>
+    <div className='w-[97vw] h-[95vh] top-1/2 left-1/2 absolute -translate-x-1/2 -translate-y-1/2 bg-primary rounded-lg border-secondary border-2 shadow-lg'>
       <Selector selectedPage={page} onPageChange={onPageChange} />
       <Descriptor />
     </div>

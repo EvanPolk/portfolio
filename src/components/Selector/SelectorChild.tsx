@@ -9,16 +9,18 @@ interface Props {
 function SelectorChildren({ pageName, selectedPage, onPageChange }: Props) {
   return (
     <div
-      className='flex items-center group'
+      className='flex items-center hover:cursor-pointer group'
       onClick={() => onPageChange(pageName)}
     >
       <div
-        className={`h-0.5 w-8 transition-all duration-300 transform ${
-          pageName === selectedPage ? 'bg-accent' : 'scale-x-50 bg-secondary'
+        className={`h-4 m-16 transition-all duration-200 ${
+          pageName === selectedPage
+            ? 'bg-accent w-32'
+            : 'w-16 bg-secondary group-hover:bg-accent group-hover:w-32'
         }`}
       ></div>
       <h2
-        className={`transition-all ${
+        className={`transition-all text-3xl ${
           pageName === selectedPage
             ? 'text-accent'
             : 'text-secondary group-hover:text-accent'
