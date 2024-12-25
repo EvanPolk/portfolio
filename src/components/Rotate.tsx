@@ -77,7 +77,7 @@ function Rotate({ trigger }: Props) {
       function animate() {
         requestAnimationFrame(animate);
 
-        theta += 0.01;
+        theta += Math.random() / 100;
 
         camera.position.x = radius * Math.cos(theta);
         camera.position.z = radius * Math.sin(theta);
