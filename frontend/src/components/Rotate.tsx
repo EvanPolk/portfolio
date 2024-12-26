@@ -46,7 +46,31 @@ function Rotate({ trigger }: Props) {
       const renderer = new THREE.WebGLRenderer({
         canvas: mount.current,
       });
-      renderer.setSize(window.innerWidth / 2 - 24, window.innerHeight);
+
+      // Setting up breakpoints for mobile (medium)
+      const width =
+        window.innerWidth >= 768
+          ? window.innerWidth / 2 - 24
+          : window.innerWidth;
+      const height =
+        window.innerWidth >= 768 ? window.innerHeight : window.innerHeight / 2;
+
+      const handleResize = () => {
+        const width =
+          window.innerWidth >= 768
+            ? window.innerWidth / 2 - 24
+            : window.innerWidth;
+        const height =
+          window.innerWidth >= 768
+            ? window.innerHeight
+            : window.innerHeight / 2;
+
+        renderer.setSize(width, height);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      renderer.setSize(width, height);
 
       const material = new THREE.LineBasicMaterial({
         color: 0x00,
