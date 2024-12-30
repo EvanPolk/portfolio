@@ -127,7 +127,6 @@ resource "aws_s3_bucket_website_configuration" "root" {
 
 resource "aws_cloudfront_distribution" "root" {
   aliases             = [local.domain]
-  default_root_object = "index.html"
   enabled             = true
   is_ipv6_enabled     = true
   wait_for_deployment = true
@@ -135,16 +134,21 @@ resource "aws_cloudfront_distribution" "root" {
   default_cache_behavior {
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
     cached_methods  = ["GET", "HEAD", "OPTIONS"]
-    # Caching Optimized
+    # CachingDisabled
     cache_policy_id        = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
     target_origin_id       = aws_s3_bucket.root.id
     viewer_protocol_policy = "redirect-to-https"
   }
 
   origin {
-    domain_name              = aws_s3_bucket.root.bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.main.id
-    origin_id                = aws_s3_bucket.root.bucket
+    domain_name = aws_s3_bucket_website_configuration.root.website_endpoint
+    origin_id   = aws_s3_bucket_website_configuration.root.id
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
   }
 
   restrictions {
@@ -158,32 +162,6 @@ resource "aws_cloudfront_distribution" "root" {
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method       = "sni-only"
   }
-}
-
-data "aws_iam_policy_document" "cloudfront-oac-access-root" {
-  statement {
-    principals {
-      type        = "Service"
-      identifiers = ["cloudfront.amazonaws.com"]
-    }
-
-    actions = [
-      "s3:GetObject"
-    ]
-
-    resources = ["${aws_s3_bucket.root.arn}/*"]
-
-    condition {
-      test     = "StringEquals"
-      variable = "AWS:SourceArn"
-      values   = [aws_cloudfront_distribution.root.arn]
-    }
-  }
-}
-
-resource "aws_s3_bucket_policy" "root" {
-  bucket = aws_s3_bucket.root.id
-  policy = data.aws_iam_policy_document.cloudfront-oac-access-root.json
 }
 
 resource "aws_route53_record" "root" {
