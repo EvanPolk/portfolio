@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        forum: ['forum', 'sans-serif'],
+        dmsans: ['DM Sans', 'sans'],
       },
     },
   },

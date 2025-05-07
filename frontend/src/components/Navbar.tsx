@@ -1,40 +1,11 @@
-import { SetStateAction } from 'react';
+import Hamburger from './Hamburger';
 
-interface Props {
-  changePage: React.Dispatch<SetStateAction<string>>;
-  changeTrigger: React.Dispatch<SetStateAction<boolean>>;
-}
-
-function Navbar({ changePage, changeTrigger }: Props) {
+function Navbar() {
   return (
-    <>
-      <div className='font-forum font-bold sm:text-sm lg:text-md xl:text-xl text-black w-full'>
-        <button
-          className='h-8 ml-8 m-4 px-2'
-          onClick={() => changePage('home')}
-        >
-          Home
-        </button>
-        <button className='h-8 m-4 px-2' onClick={() => changePage('about')}>
-          About
-        </button>
-        <button
-          className='h-8 m-4 px-2'
-          onClick={() => changePage('infrastructure')}
-        >
-          Infrastructure
-        </button>
-        <button className='h-8 m-4 px-2' onClick={() => changePage('contact')}>
-          Contact
-        </button>
-        <button
-          className='h-8 m-4 px-2'
-          onClick={() => changeTrigger((prev) => !prev)}
-        >
-          Rerender Wave
-        </button>
-      </div>
-    </>
+    <div className='flex items-center justify-between sticky h-20 w-full top-0 bg-stone-200 shadow z-40'>
+      <h1 className='font-bold text-stone-800 text-2xl mx-8'>Evan Polk</h1>
+      <Hamburger />
+    </div>
   );
 }
 
