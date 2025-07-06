@@ -1,7 +1,6 @@
 import Navbar from '../components/Navbar';
 import LinkedIn from '../assets/brand-linkedin.svg';
 import Github from '../assets/brand-github.svg';
-import { Link } from 'react-router';
 
 function AboutMe() {
   return (
